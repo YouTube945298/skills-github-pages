@@ -1,67 +1,61 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #e6e6e6;
+  background-color: #f9f9f9;
 }
 
-.top-bar {
+header {
   background-color: #cc181e;
   padding: 10px;
   text-align: center;
 }
 
 .logo {
-  width: 120px;
-  height: auto;
+  height: 30px;
 }
 
-.video-list {
+main {
   padding: 10px;
 }
 
 .video {
   display: flex;
-  background-color: white;
-  border-radius: 5px;
+  background-color: #fff;
   margin-bottom: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .video img {
   width: 120px;
   height: auto;
-  object-fit: cover;
 }
 
-.info {
+.details {
   padding: 10px;
   flex: 1;
 }
 
-.info h3 {
-  margin: 0;
+.details h2 {
+  margin: 0 0 5px;
   font-size: 16px;
-  color: #222;
 }
 
-.info p {
-  margin: 5px 0;
-  color: #666;
-  font-size: 14px;
+.details p {
+  margin: 0 0 10px;
+  color: #555;
 }
 
-.info a {
+.details a {
   display: inline-block;
-  margin-top: 8px;
-  padding: 6px 10px;
+  padding: 6px 12px;
   background-color: #cc181e;
-  color: white;
+  color: #fff;
   text-decoration: none;
-  font-size: 14px;
   border-radius: 3px;
 }
 
-.info a:hover {
-  background-color: #a41218;
+.details a:hover {
+  background-color: #a00;
 }
