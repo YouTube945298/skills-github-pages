@@ -1,4 +1,4 @@
-body {
+ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
@@ -59,3 +59,4 @@ main {
 .details a:hover {
   background-color: #a00;
 }
+
