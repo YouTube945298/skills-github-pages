@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebTV Launcher</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="app-launcher">
+    <h1>WebTV</h1>
+    <div class="app-grid">
+      <div class="app-icon" onclick="openApp('apps/youtube.html')">
+        <img src="assets/icons/youtube.png" alt="YouTube">
+        <span>YouTube</span>
+      </div>
+      <div class="app-icon" onclick="openApp('apps/tv.html')">
+        <img src="assets/icons/tv.png" alt="TV">
+        <span>TV</span>
+      </div>
+      <div class="app-icon" onclick="openApp('apps/browser.html')">
+        <img src="assets/icons/browser.png" alt="Browser">
+        <span>Browser</span>
+      </div>
+    </div>
+  </div>
+  <div id="app-frame">
+    <iframe id="appIframe" src="" frameborder="0"></iframe>
+    <button onclick="closeApp()">⨉ Închide</button>
+  </div>
+  <script src="assets/script.js"></script>
+</body>
+</html>
