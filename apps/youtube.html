@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Retro TV</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      background-color: #111;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #333;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .video-card {
+      background-color: #111;
+      border: 1px solid #333;
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .video-card:hover {
+      transform: scale(1.02);
+      border-color: #666;
+    }
+
+    .video-card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .video-info {
+      margin-top: 8px;
+    }
+
+    .video-info strong {
+      display: block;
+      font-size: 1rem;
+      color: #ff0;
+    }
+
+    .video-info small {
+      color: #ccc;
+    }
+
+    #player-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    #player {
+      width: 90%;
+      max-width: 800px;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+
+    #close-btn {
+      margin-top: 10px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #close-btn:hover {
+      background: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <h1>WebTV - YouTube (Retro Edition)</h1>
+  <div class="grid" id="video-list"></div>
+
+  <div id="player-container">
+    <video id="player" controls></video>
+    <button id="close-btn" onclick="closePlayer()">Închide</button>
+  </div>
+
+  <script>
+    fetch('youtube.json')
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById('video-list');
+        data.forEach(video => {
+          const card = document.createElement('div');
+          card.className = 'video-card';
+          card.innerHTML = `
+            <img src="${video.thumbnail}" alt="${video.title}">
+            <div class="video-info">
+              <strong>${video.title}</strong>
+              <small>${video.channel} - ${video.category}</small>
+            </div>
+          `;
+          card.onclick = () => playVideo(video.video);
+          list.appendChild(card);
+        });
+      });
+
+    function playVideo(src) {
+      const player = document.getElementById('player');
+      player.src = src;
+      document.getElementById('player-container').style.display = 'flex';
+      player.play();
+    }
+
+    function closePlayer() {
+      const player = document.getElementById('player');
+      player.pause();
+      player.src = '';
+      document.getElementById('player-container').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
