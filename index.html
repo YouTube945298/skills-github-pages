@@ -8,62 +8,100 @@
       background: black;
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
+      overflow: hidden;
     }
     h1 {
       padding: 1em;
       background: #222;
       border-bottom: 2px solid #444;
+      text-align: center;
     }
     .menu {
       display: flex;
       justify-content: center;
-      margin-top: 50px;
-      gap: 30px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+      gap: 40px;
     }
     .menu-item {
-      border: 2px solid #666;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 20px;
-      min-width: 150px;
+      width: 150px;
+      height: 150px;
+      background: #111;
+      border: 2px solid #444;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s, border-color 0.2s;
     }
-    .menu-item:focus, .menu-item.active {
+    .menu-item img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 10px;
+    }
+    .menu-item:focus,
+    .menu-item.active {
       outline: none;
       border-color: yellow;
       transform: scale(1.1);
     }
+    .menu-item:active {
+      transform: scale(0.95);
+    }
   </style>
 </head>
 <body>
-  <h1>WebTV - Meniu Principal</h1>
-  <div class="menu">
-    <div class="menu-item" tabindex="0" data-app="tv.html">📺 TV</div>
-    <div class="menu-item" tabindex="0" data-app="youtube.html">▶️ YouTube</div>
-    <div class="menu-item" tabindex="0" data-app="browser.html">🌐 Browser</div>
+  <h1>WebTV 2010 Edition</h1>
+  <div class="menu" id="menu">
+    <div class="menu-item" tabindex="0" data-app="tv.html">
+      <img src="icons/tv.png" alt="TV">
+      <span>TV</span>
+    </div>
+    <div class="menu-item" tabindex="0" data-app="youtube.html">
+      <img src="icons/youtube.png" alt="YouTube">
+      <span>YouTube</span>
+    </div>
+    <div class="menu-item" tabindex="0" data-app="browser.html">
+      <img src="icons/browser.png" alt="Browser">
+      <span>Browser</span>
+    </div>
   </div>
 
   <script>
     const items = document.querySelectorAll('.menu-item');
     let current = 0;
-    items[current].classList.add('active');
-    items[current].focus();
+
+    function updateFocus() {
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === current);
+      });
+      items[current].focus();
+    }
+
+    updateFocus();
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
-        items[current].classList.remove('active');
         current = (current + 1) % items.length;
-        items[current].classList.add('active');
-        items[current].focus();
+        updateFocus();
       } else if (e.key === 'ArrowLeft') {
-        items[current].classList.remove('active');
         current = (current - 1 + items.length) % items.length;
-        items[current].classList.add('active');
-        items[current].focus();
+        updateFocus();
       } else if (e.key === 'Enter') {
         window.location.href = items[current].dataset.app;
       }
+    });
+
+    // Mouse / touch support
+    items.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        current = index;
+        updateFocus();
+        window.location.href = item.dataset.app;
+      });
     });
   </script>
 </body>
